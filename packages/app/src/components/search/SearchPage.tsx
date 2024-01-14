@@ -1,5 +1,8 @@
 import React from 'react';
-import { makeStyles, Theme, Grid, Paper } from '@material-ui/core';
+import makeStyles from '@mui/styles/makeStyles';
+import { Theme } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 
 import { CatalogSearchResultListItem } from '@backstage/plugin-catalog';
 import {
