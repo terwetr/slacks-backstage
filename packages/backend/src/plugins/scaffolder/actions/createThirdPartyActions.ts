@@ -1,0 +1,31 @@
+import {
+  createWriteFileAction,
+  createAppendFileAction,
+  createParseFileAction,
+  createReplaceInFileAction,
+  createJSONataAction,
+  createYamlJSONataTransformAction,
+  createJsonJSONataTransformAction,
+  createMergeJSONAction,
+  createMergeAction,
+  createSerializeJsonAction,
+  createSerializeYamlAction,
+  createSleepAction,
+  createZipAction,
+} from '@roadiehq/scaffolder-backend-module-utils';
+
+export const createThirdPartyActions = (actionId?: string) => [
+  createWriteFileAction(),
+  createAppendFileAction(),
+  createParseFileAction(),
+  createReplaceInFileAction(),
+  createJSONataAction(),
+  createYamlJSONataTransformAction(),
+  createJsonJSONataTransformAction(),
+  createMergeJSONAction({ actionId }),
+  createMergeAction(),
+  createSerializeJsonAction(),
+  createSerializeYamlAction(),
+  createSleepAction(),
+  createZipAction(),
+];

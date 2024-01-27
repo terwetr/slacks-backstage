@@ -1,7 +1,13 @@
 import { CatalogClient } from '@backstage/catalog-client';
-import { createRouter } from '@backstage/plugin-scaffolder-backend';
+import {
+  createBuiltinActions,
+  createRouter,
+} from '@backstage/plugin-scaffolder-backend';
 import { Router } from 'express';
 import type { PluginEnvironment } from '../types';
+import { ScmIntegrations } from '@backstage/integration';
+import { createThirdPartyActions } from './scaffolder/actions/createThirdPartyActions';
+import { createCustomActions } from './scaffolder/actions/createCustomActions';
 
 export default async function createPlugin(
   env: PluginEnvironment,
@@ -9,8 +15,25 @@ export default async function createPlugin(
   const catalogClient = new CatalogClient({
     discoveryApi: env.discovery,
   });
+  const integrations = ScmIntegrations.fromConfig(env.config);
+  const actions = [
+    // Built-in
+    ...createBuiltinActions({
+      integrations,
+      catalogClient,
+      config: env.config,
+      reader: env.reader,
+    }),
+
+    // Third-party
+    ...createThirdPartyActions(),
+
+    // Custom
+    ...createCustomActions(),
+  ];
 
   return await createRouter({
+    actions,
     logger: env.logger,
     config: env.config,
     database: env.database,
