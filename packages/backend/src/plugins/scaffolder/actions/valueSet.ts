@@ -6,6 +6,7 @@ export const createValueSetAction = () => {
     value: any;
   }>({
     id: 'acme:value:set',
+    supportsDryRun: true,
     schema: {
       input: z.object({
         value: z.any().describe('The value to set'),

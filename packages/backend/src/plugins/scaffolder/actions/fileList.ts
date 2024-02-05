@@ -7,6 +7,7 @@ export const createFileListAction = () => {
   return createTemplateAction<{ filter?: string }>({
     id: 'acme:file:list',
     description: 'Get list of all files in the workspace.',
+    supportsDryRun: true,
     schema: {
       input: z.object({
         filter: z

@@ -9,6 +9,7 @@ export const createFileReadAction = () => {
     preview: boolean;
   }>({
     id: 'acme:file:read',
+    supportsDryRun: true,
     schema: {
       input: z.object({
         path: z.string().describe('The path of the file to be read'),

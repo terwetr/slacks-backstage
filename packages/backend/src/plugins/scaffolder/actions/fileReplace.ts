@@ -6,6 +6,7 @@ import z from 'zod';
 export const createFileReplaceAction = () => {
   return createTemplateAction({
     id: 'acme:file:replace',
+    supportsDryRun: true,
     schema: {
       input: z.object({
         path: z.string().describe('The path of the file to be read'),

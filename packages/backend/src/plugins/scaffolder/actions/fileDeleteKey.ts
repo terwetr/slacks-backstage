@@ -8,6 +8,7 @@ import { InputError } from '@backstage/errors';
 export const createFileDeleteKeyAction = () => {
   return createTemplateAction({
     id: 'acme:file:deleteKey',
+    supportsDryRun: true,
     schema: {
       input: z.object({
         filename: z.string().describe('Filename of YAML file to transform'),
