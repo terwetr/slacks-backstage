@@ -13,8 +13,13 @@ import {
   createSleepAction,
   createZipAction,
 } from '@roadiehq/scaffolder-backend-module-utils';
+import { createHttpBackstageAction } from '@roadiehq/scaffolder-backend-module-http-request';
+import { DiscoveryService } from '@backstage/backend-plugin-api';
 
-export const createThirdPartyActions = (actionId?: string) => [
+export const createThirdPartyActions = (
+  discovery: DiscoveryService,
+  actionId?: string,
+) => [
   createWriteFileAction(),
   createAppendFileAction(),
   createParseFileAction(),
@@ -28,4 +33,5 @@ export const createThirdPartyActions = (actionId?: string) => [
   createSerializeYamlAction(),
   createSleepAction(),
   createZipAction(),
+  createHttpBackstageAction({ discovery }),
 ];

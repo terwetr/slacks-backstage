@@ -26,7 +26,7 @@ export default async function createPlugin(
     }),
 
     // Third-party
-    ...createThirdPartyActions(),
+    ...createThirdPartyActions(env.discovery),
 
     // Custom
     ...createCustomActions(),
