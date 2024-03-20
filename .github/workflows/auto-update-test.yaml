@@ -5,7 +5,4 @@ on:
 jobs:
   auto-update-test:
     name: 'Test Automatic Update'
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Call Workflow'
-        uses: './.github/workflows/auto-update.yaml'
+    uses: './.github/workflows/auto-update.yaml'
