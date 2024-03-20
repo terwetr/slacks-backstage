@@ -1,0 +1,8 @@
+on:
+  pull_request:
+    branches: ['main']
+
+jobs:
+  auto-update-test:
+    name: 'Test Automatic Update'
+    uses: './.github/workflows/auto-update.yaml'
