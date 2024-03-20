@@ -19,6 +19,8 @@ describe('acme:fs:list', () => {
     logStream,
     output: jest.fn(),
     createTemporaryDirectory: jest.fn(),
+    checkpoint: jest.fn(),
+    getInitiatorCredentials: jest.fn(),
   };
 
   const action = createFileListAction();
