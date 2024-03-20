@@ -31,8 +31,12 @@ jobs:
           git commit -m "${{ env.COMMIT_MESSAGE }}"
           git push origin ${{ env.BRANCH }}-${{ github.run_id }}
 
+      - name: Build
+        uses: './.github/workflows/ci-cd.yaml'
+
       - name: Open Pull Request
         uses: actions/github-script@v6
+        if: ${{ github.event_name == 'schedule' }}
         env:
           BRANCH: ${{ env.BRANCH }}-${{ github.run_id }}
           COMMIT_MESSAGE: ${{ env.COMMIT_MESSAGE }}
