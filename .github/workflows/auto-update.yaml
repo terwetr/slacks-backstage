@@ -32,7 +32,11 @@ jobs:
           git push origin ${{ env.BRANCH }}-${{ github.run_id }}
 
       - name: Build
-        uses: './.github/workflows/ci-cd.yaml'
+        run: |
+          yarn install --frozen-lockfile
+          yarn tsc
+          yarn test:all
+          docker build . --file Dockerfile --tag backstage:$(date +%s)
 
       - name: Open Pull Request
         uses: actions/github-script@v6
