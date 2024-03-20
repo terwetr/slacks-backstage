@@ -20,6 +20,8 @@ describe('acme:file:replace', () => {
     logStream,
     output: jest.fn(),
     createTemporaryDirectory: jest.fn(),
+    checkpoint: jest.fn(),
+    getInitiatorCredentials: jest.fn(),
   };
 
   const action = createFileReplaceAction();
