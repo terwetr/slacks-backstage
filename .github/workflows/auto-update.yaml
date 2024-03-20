@@ -1,0 +1,50 @@
+on:
+  workflow_call:
+
+env:
+  BRANCH: feature/auto-update-backstage
+  COMMIT_MESSAGE: 'versions:bump'
+
+jobs:
+  auto-update:
+    name: 'Automatic Update'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Code'
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile
+      - run: yarn backstage-cli versions:bump
+
+      - name: Create Branch
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout -b ${{ env.BRANCH }}-${{ github.run_id }}
+          git add .
+          git commit -m "${{ env.COMMIT_MESSAGE }}"
+          git push origin ${{ env.BRANCH }}-${{ github.run_id }}
+
+      - name: Open Pull Request
+        uses: actions/github-script@v6
+        env:
+          BRANCH: ${{ env.BRANCH }}-${{ github.run_id }}
+          COMMIT_MESSAGE: ${{ env.COMMIT_MESSAGE }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.request('POST /repos/{owner}/{repo}/pulls', {
+              owner: 'terwetr',
+              repo: 'slacks-backstage',
+              title: process.env.COMMIT_MESSAGE,
+              body: 'PR via GHA',
+              head: process.env.BRANCH,
+              base: 'main',
+              headers: {
+                'X-GitHub-Api-Version': '2022-11-28'
+              }
+            })

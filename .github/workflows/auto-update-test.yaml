@@ -1,0 +1,11 @@
+on:
+  pull_request:
+    branches: ['main']
+
+jobs:
+  auto-update-test:
+    name: 'Test Automatic Update'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Call Workflow'
+        uses: './.github/workflows/auto-update.yaml'
