@@ -16,7 +16,7 @@ import {
 import { createHttpBackstageAction } from '@roadiehq/scaffolder-backend-module-http-request';
 import { DiscoveryService } from '@backstage/backend-plugin-api';
 
-export const createThirdPartyActions = (
+export const createThirdPartyActions: any = (
   discovery: DiscoveryService,
   actionId?: string,
 ) => [
